@@ -3,6 +3,10 @@ import requests
 import random
 
 def get_destinations():
+	'''
+	This function is used to create the list of travel destinations. I wanted to flex my scraping abilities, so it pulls from Forbes.com.
+	The function scrapes the Top Suggested locations, and removes locations which are not covered by Yelp. More on this later.
+	'''
 
 	url = 'https://www.forbes.com/sites/laurabegleybloom/2022/07/27/ranked-the-worlds-20-best-cities-in-2022-according-to-time-out/?sh=1dae77a87526'
 	headers = {'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
