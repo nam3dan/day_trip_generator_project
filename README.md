@@ -13,4 +13,4 @@ Project Goals
         previously selected items
     - User should be able to confirm that day trip is "complete" once I like all the random selections.
     - Display completed trip in the console
-    - Functions should have single resposibility
+    - Functions should have single resposibility.
