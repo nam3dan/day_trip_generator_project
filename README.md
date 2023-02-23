@@ -25,5 +25,4 @@ Project Goals
 <li>Autogenerate Entertainment options based on location.</li>
 <li>Allow User to input a custom location.</li>
 <li>Autogenerate list of Top Travel locations, which have a Yelp presence</li>
-<li>Break out Code into main.py and functions.py</li>
 </ul>
