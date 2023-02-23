@@ -1,5 +1,5 @@
 # day_trip_generator_project
-A project which automatically generates suggestions for a user
+A project which automatically generates travel & activity suggestions for a user.
 
 <p>
 Project Goals
