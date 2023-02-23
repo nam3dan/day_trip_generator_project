@@ -80,6 +80,17 @@ def real_venue_search(city_name, mode):
 	venue_selection, venue_list = selection_rotator("%s Experience" % mode, venue_list)
 	return(venue_selection, venue_list)
 
+def transportation():
+	transpo_list = ['Air Plane','Boat','Jet Pack']
+	user_location = input("\nAre you on the same continent as your location? (y/n)")
+	if user_location == "y":
+		transpo_list.append('Rental Car')
+		transpo_list.append('Train')
+	else:
+		transpo_list = transpo_list
+	transportation_selection, transportation_list  = selection_rotator("Mode of Transportation", transpo_list)
+	return(transportation_selection, transportation_list)
+
 def greeting():
 	city_list = get_destinations()
 	print("\n\n\n\n\n\n\n\nHello and Welcome to nam3dan's Dope Ass Travel Agency")
@@ -94,8 +105,9 @@ def greeting():
 			custom_city = input("\n Please input custom search in 'City, Country' format: ")
 			selected_city = custom_city
 			city_search_choice = True
-	selected_restaurant, food_list = food_search(selected_city)
-	selected_entertainment, entertainment_list = entertainment_search(selected_city)
+	selected_restaurant, food_list = real_venue_search(selected_city, "Restaurant")
+	selected_entertainment, entertainment_list = real_venue_search(selected_city, "Entertainment")
+	selected_transportation, transportation_list = transportation()
 
 
 def selection_rotator(keyword, selection_list):
