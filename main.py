@@ -33,6 +33,27 @@ def city_selector(city_list):
 	city_selection, city_list = selection_rotator("Destination", city_list)
 	return (city_selection, city_list)
 
+def food_search(city_name):
+	print("\nExcellent Choice! Now Let's look into Dining!\n")
+	query_term = city_name.replace(', ','%2C+').replace(' ','%2C+')
+	url = 'https://www.yelp.com/search?find_desc=food&find_loc=' + query_term
+	headers = {'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8'}
+	response = requests.request("GET", url, headers=headers)
+	tree = html.fromstring(response.content)
+	food_list = []
+	try:
+		for i in range(3,12):
+			xpath_query_food = '//*[@id="main-content"]/div/ul/li['+ str(i) +']/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/div/div/h3/span/a/text()'
+			restaurant = tree.xpath(xpath_query_food)[0].replace("â\x80\x99","'")
+			food_list.append(restaurant)
+	except:
+		for i in range(8,17):
+			xpath_query_food = '//*[@id="main-content"]/div/ul/li['+ str(i) +']/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/div/div/h3/span/a/text()'
+			restaurant = tree.xpath(xpath_query_food)[0].replace("â\x80\x99","'")
+			food_list.append(restaurant)
+	food_selection, food_list = selection_rotator("Dining Experience", food_list)
+	return(food_selection, food_list)
+
 def greeting():
 	city_list = get_destinations()
 	print("\n\n\n\n\n\n\n\nHello and Welcome to nam3dan's Dope Ass Travel Agency")
@@ -47,6 +68,7 @@ def greeting():
 			custom_city = input("\n Please input custom search in 'City, Country' format: ")
 			selected_city = custom_city
 			city_search_choice = True
+	selected_restaurant, food_list = food_search(selected_city)
 
 
 def selection_rotator(keyword, selection_list):
@@ -55,13 +77,14 @@ def selection_rotator(keyword, selection_list):
 	while confirmed_selection == False:
 		random_selection = selection_list[random.randint(0,len(selection_list)-1)]
 		print("\nWe have selected %s as your %s.\n" % (random_selection, keyword))
-		confirmation = input("Do you want to confirm this option? (y|n): ")
+		confirmation = input("\nDo you want to confirm this option? (y|n): ")
 		if confirmation == "y":
 			confirmed_food = True
 			selected_option = random_selection
+			selection_list = full_list + selection_list
 			return (selected_option, selection_list)
 		else:
 			if len(selection_list)>1:
 				full_list.append(selection_list.pop(selection_list.index(random_selection)))
 			else:
-				selection_list = full_list
+				selection_list = full_list + selection_list
