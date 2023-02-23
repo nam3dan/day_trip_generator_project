@@ -28,3 +28,21 @@ def get_destinations():
 					city_list_scrape.pop(city_list_scrape.index(i))
 
 	return city_list_scrape
+
+
+def selection_rotator(keyword, selection_list):
+	full_list = []
+	confirmed_selection = False
+	while confirmed_selection == False:
+		random_selection = selection_list[random.randint(0,len(selection_list)-1)]
+		print("\nWe have selected %s as your %s.\n" % (random_selection, keyword))
+		confirmation = input("Do you want to confirm this option? (y|n): ")
+		if confirmation == "y":
+			confirmed_food = True
+			selected_option = random_selection
+			return (selected_option, selection_list)
+		else:
+			if len(selection_list)>1:
+				full_list.append(selection_list.pop(selection_list.index(random_selection)))
+			else:
+				selection_list = full_list
