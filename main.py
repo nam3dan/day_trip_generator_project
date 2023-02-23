@@ -29,6 +29,25 @@ def get_destinations():
 
 	return city_list_scrape
 
+def city_selector(city_list):
+	city_selection, city_list = selection_rotator("Destination", city_list)
+	return (city_selection, city_list)
+
+def greeting():
+	city_list = get_destinations()
+	print("\n\n\n\n\n\n\n\nHello and Welcome to nam3dan's Dope Ass Travel Agency")
+	city_search_choice = False
+	while city_search_choice == False:
+		city_search_choice_selection = int(input("\n\nWould you like to 1)look through our list of Citys or 2) do a custom search? Please respond with either a 1 or 2.: "))
+		if city_search_choice_selection == 1:
+			print("\n Generating a list of Top Travel Destinations")
+			city_search_choice = True
+			selected_city, city_list = city_selector(city_list)
+		elif city_search_choice_selection == 2:
+			custom_city = input("\n Please input custom search in 'City, Country' format: ")
+			selected_city = custom_city
+			city_search_choice = True
+
 
 def selection_rotator(keyword, selection_list):
 	full_list = []
