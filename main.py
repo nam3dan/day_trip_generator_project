@@ -7,7 +7,6 @@ def get_destinations():
 	This function is used to create the list of travel destinations. I wanted to flex my scraping abilities, so it pulls from Forbes.com.
 	The function scrapes the Top Suggested locations, and removes locations which are not covered by Yelp. More on this later.
 	'''
-
 	url = 'https://www.forbes.com/sites/laurabegleybloom/2022/07/27/ranked-the-worlds-20-best-cities-in-2022-according-to-time-out/?sh=1dae77a87526'
 	headers = {'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
 	response = requests.request("GET", url, headers=headers)
@@ -26,33 +25,11 @@ def get_destinations():
 			for i in city_list_scrape:
 				if i in pop_list:
 					city_list_scrape.pop(city_list_scrape.index(i))
-
 	return city_list_scrape
 
 def city_selector(city_list):
 	city_selection, city_list = selection_rotator("Destination", city_list)
 	return (city_selection, city_list)
-
-def food_search(city_name):
-	print("\nExcellent Choice! Now Let's look into Dining!\n")
-	query_term = city_name.replace(', ','%2C+').replace(' ','%2C+')
-	url = 'https://www.yelp.com/search?find_desc=food&find_loc=' + query_term
-	headers = {'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36', 'accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8'}
-	response = requests.request("GET", url, headers=headers)
-	tree = html.fromstring(response.content)
-	food_list = []
-	try:
-		for i in range(3,12):
-			xpath_query_food = '//*[@id="main-content"]/div/ul/li['+ str(i) +']/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/div/div/h3/span/a/text()'
-			restaurant = tree.xpath(xpath_query_food)[0].replace("â\x80\x99","'")
-			food_list.append(restaurant)
-	except:
-		for i in range(8,17):
-			xpath_query_food = '//*[@id="main-content"]/div/ul/li['+ str(i) +']/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/div/div/h3/span/a/text()'
-			restaurant = tree.xpath(xpath_query_food)[0].replace("â\x80\x99","'")
-			food_list.append(restaurant)
-	food_selection, food_list = selection_rotator("Dining Experience", food_list)
-	return(food_selection, food_list)
 
 def real_venue_search(city_name, mode):
 	print("\nExcellent Choice! Now Let's look into %s!\n" % mode)
@@ -139,7 +116,6 @@ def final_confirmation(city,restaurant,entertainment,transportation,city_list,fo
 			if mod_choice == 4:
 				transportation, transportation_list = selection_rotator("Mode of Transportation", transportation_list)
 
-
 def selection_rotator(keyword, selection_list):
 	full_list = []
 	confirmed_selection = False
@@ -157,3 +133,5 @@ def selection_rotator(keyword, selection_list):
 				full_list.append(selection_list.pop(selection_list.index(random_selection)))
 			else:
 				selection_list = full_list + selection_list
+
+greeting()
