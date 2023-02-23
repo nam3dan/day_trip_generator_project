@@ -82,6 +82,9 @@ def greeting():
 			custom_city = input("\n Please input custom search in 'City, Country' format: ")
 			selected_city = custom_city
 			city_search_choice = True
+		else:
+			print("Please make a valid entry of 1 or 2.")
+			greeting()
 	selected_restaurant, food_list = real_venue_search(selected_city, "Restaurant")
 	selected_entertainment, entertainment_list = real_venue_search(selected_city, "Entertainment")
 	selected_transportation, transportation_list = transportation()
@@ -133,5 +136,4 @@ def selection_rotator(keyword, selection_list):
 				full_list.append(selection_list.pop(selection_list.index(random_selection)))
 			else:
 				selection_list = full_list + selection_list
-
 greeting()
