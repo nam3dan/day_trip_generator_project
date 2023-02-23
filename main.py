@@ -108,6 +108,36 @@ def greeting():
 	selected_restaurant, food_list = real_venue_search(selected_city, "Restaurant")
 	selected_entertainment, entertainment_list = real_venue_search(selected_city, "Entertainment")
 	selected_transportation, transportation_list = transportation()
+	final_confirmation(selected_city,selected_restaurant,selected_entertainment,selected_transportation,city_list, food_list,entertainment_list,transportation_list)
+
+def final_confirmation(city,restaurant,entertainment,transportation,city_list,food_list,entertainment_list,transportation_list):
+	user_confirmed = False
+	while user_confirmed == False:
+		print("\n Great! Here is your Selection: \n\n")
+		print("Destination: " + city)
+		print("Restaurant: " + restaurant)
+		print("Entertainment: " + entertainment)
+		print("Transportation: " + transportation)
+		print('\n\n')
+		user_confirmation_choice = input("\nWould you like to complete booking? (y|n): ")
+		if user_confirmation_choice == "y":
+			print("\nTrip Completed. We hope you enjoyed your:\n\n%s ride to %s. \n\nFood at %s. \n\nExperience at %s" % (transportation, city, restaurant, entertainment))
+			user_confirmed = True
+			book_again = input("\n Would you like to book another trip? (y|n): ")
+			if book_again == "y":
+				greeting()
+			else:
+				print("\nThank you for chosing nam3dan! Have a great day!")
+		else:
+			mod_choice=int(input("\nWhat would you like to modify: 1) Destination 2) Restaurant 3) Entertainment 4) Transportation (1|2|3|4): "))
+			if mod_choice == 1:
+				city,city_list = selection_rotator("Destination", city_list)
+			if mod_choice == 2:
+				restaurant,food_list =selection_rotator("Dining Experience",food_list)
+			if mod_choice == 3:
+				entertainment, entertainment_list = selection_rotator("Entertainment", entertainment_list)
+			if mod_choice == 4:
+				transportation, transportation_list = selection_rotator("Mode of Transportation", transportation_list)
 
 
 def selection_rotator(keyword, selection_list):
